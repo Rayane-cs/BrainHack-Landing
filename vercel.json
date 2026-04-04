@@ -5,7 +5,7 @@
   ],
   "routes": [
     {
-      "src": "^/(.*\\.(js|mjs|css|map|json|xml|txt|webmanifest|png|jpg|jpeg|gif|svg|webp|otf|ttf|woff|woff2))$",
+      "src": "^/(.*\\.(js|mjs|css|map|json|xml|txt|webmanifest|png|jpg|jpeg|gif|svg|webp|webm|mp4|otf|ttf|woff|woff2))$",
       "dest": "/$1"
     },
     {

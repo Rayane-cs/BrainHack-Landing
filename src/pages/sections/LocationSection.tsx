@@ -24,7 +24,7 @@ export const LocationSection = (): JSX.Element => {
             muted
             loop
             playsInline
-            preload="none"
+            preload="auto"
           >
             <source src="/assets/Mobilis_Agence.webm" type="video/webm" />
             Your browser does not support the video tag.
