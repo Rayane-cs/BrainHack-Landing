@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build" }
+  ],
+  "routes": [
+    {
+      "src": "^/(.*\\.(js|mjs|css|map|json|xml|txt|webmanifest|png|jpg|jpeg|gif|svg|webp|otf|ttf|woff|woff2))$",
+      "dest": "/$1"
+    },
+    {
+      "src": "^/(.*)$",
+      "dest": "/index.html"
+    }
+  ]
+}
