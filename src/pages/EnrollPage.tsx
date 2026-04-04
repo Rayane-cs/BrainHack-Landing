@@ -69,8 +69,41 @@ export const EnrollPage = (): JSX.Element => {
       window.location.reload();
     };
 
+    // --- SECURITY: ANTI-F12 & ANTI-RIGHT-CLICK ---
+    const preventDevTools = (e: KeyboardEvent) => {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    const preventRightClick = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Invisible debugger trap (pauses Execution if DevTools is open)
+    const devToolsTrap = setInterval(() => {
+      const start = performance.now();
+      debugger;
+      const end = performance.now();
+      if (end - start > 100) {
+        // DevTools likely open, could add logic here but debugger itself is the deterrent
+      }
+    }, 1000);
+
+    window.addEventListener("keydown", preventDevTools);
+    window.addEventListener("contextmenu", preventRightClick);
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("keydown", preventDevTools);
+      window.removeEventListener("contextmenu", preventRightClick);
+      clearInterval(devToolsTrap);
       delete (window as any).showSuccess;
       delete (window as any).clearSuccess;
     };
@@ -114,17 +147,56 @@ export const EnrollPage = (): JSX.Element => {
     return () => clearTimeout(timer);
   }, [form.email]);
 
+  // --- SECURITY: SANITIZATION ---
+  const sanitizeInput = (val: string) => {
+    // Basic sanitization to strip characters often used in SQL injection/XSS
+    // Note: Real protection MUST be on the backend.
+    return val.replace(/[<>'"\\;]/g, "").trim();
+  };
+
   const set = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm((f) => ({ ...f, [field]: e.target.value }));
+    let val = e.target.value;
+    if (field !== "level" && field !== "speciality") {
+      val = sanitizeInput(val);
+    }
+    setForm((f) => ({ ...f, [field]: val }));
     setErrors((er) => ({ ...er, [field]: "" }));
   };
 
   const validate = (): boolean => {
     const errs: Partial<FormData> = {};
     const requiredFields: (keyof FormData)[] = ["full_name", "email", "phone", "registration_number", "level", "speciality"];
+    
     requiredFields.forEach((k) => {
-      if (!form[k].trim()) errs[k] = t.enroll.required;
+      if (!form[k].trim()) {
+        errs[k] = t.enroll.required;
+      }
     });
+
+    // Enhanced Validations
+    if (!errs.email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(form.email)) {
+        errs.email = "Invalid email format";
+      }
+    }
+
+    if (!errs.phone) {
+      // Algerian format: 05, 06, or 07 followed by 8 digits
+      const phoneRegex = /^(05|06|07)\d{8}$/;
+      if (!phoneRegex.test(form.phone)) {
+        errs.phone = "Must be a valid Algerian phone number (e.g. 0555123456)";
+      }
+    }
+
+    if (!errs.registration_number) {
+      // Allow only numbers and letters (prevents many injection tokens)
+      const regRegex = /^[a-zA-Z0-9]+$/;
+      if (!regRegex.test(form.registration_number)) {
+        errs.registration_number = "Registration number must be alphanumeric";
+      }
+    }
+
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
