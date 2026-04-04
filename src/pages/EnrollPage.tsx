@@ -26,8 +26,12 @@ const empty: FormData = {
 export const EnrollPage = (): JSX.Element => {
   const { t } = useLang();
   const [, setLocation] = useLocation();
+  const regStartDate = new Date("2026-04-05T09:00:00Z");
   const regDeadline = new Date("2026-04-15T23:59:59Z");
-  const { expired } = useCountdown(regDeadline);
+  
+  const { expired: hasStarted, days: sDays, hours: sHours, minutes: sMins, seconds: sSecs } = useCountdown(regStartDate);
+  const { expired: regClosed } = useCountdown(regDeadline);
+  const isNotStarted = !hasStarted;
 
   const [form, setForm] = useState<FormData>(empty);
   const [errors, setErrors] = useState<Partial<FormData>>({});
@@ -248,11 +252,45 @@ export const EnrollPage = (): JSX.Element => {
         <div className="w-14 h-[3px] bg-[#28bbe8] rounded-full" />
       </div>
 
-      {/* Registration Closed */}
-      {expired ? (
+      {/* Registration Not Started */}
+      {isNotStarted ? (
+        <div className="relative z-10 w-full max-w-lg bg-[#0a1628] border border-[#198acd40] rounded-2xl px-8 py-12 flex flex-col items-center gap-6 text-center shadow-[0_0_60px_rgba(62,210,255,0.06)]">
+          <div className="text-5xl mb-2 animate-bounce">⏳</div>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-[#e6f7ff] text-2xl font-bold tracking-tight">{t.enroll.notStartedTitle}</h2>
+            <p className="text-[#7fa6bd] text-sm leading-relaxed max-w-[380px]">{t.enroll.notStartedMsg}</p>
+          </div>
+          
+          {/* Countdown timer for start */}
+          <div className="flex gap-4 mt-2">
+            {[
+              { val: sDays, label: t.countdown.days },
+              { val: sHours, label: t.countdown.hours },
+              { val: sMins, label: t.countdown.minutes },
+              { val: sSecs, label: t.countdown.seconds }
+            ].map((item, idx) => (
+              <div key={idx} className="flex flex-col items-center">
+                <div className="bg-[#198acd15] border border-[#3ed2ff30] rounded-lg w-14 h-14 flex items-center justify-center mb-1">
+                  <span className="text-[#3ed2ff] text-xl font-mono font-bold">
+                    {String(item.val).padStart(2, '0')}
+                  </span>
+                </div>
+                <span className="text-[#7fa6bd] text-[10px] uppercase tracking-wider">{item.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setLocation("/")}
+            className="mt-4 bg-[#3ed2ff10] text-[#3ed2ff] border border-[#3ed2ff30] px-8 py-3 rounded-[50px] hover:bg-[#3ed2ff20] transition-all cursor-pointer text-sm font-semibold"
+          >
+            {t.enroll.back}
+          </button>
+        </div>
+      ) : regClosed ? (
         <div className="relative z-10 w-full max-w-lg bg-[#0a1628] border border-[#198acd40] rounded-2xl px-8 py-12 flex flex-col items-center gap-4 text-center">
           <div className="text-4xl mb-2">🔒</div>
-          <h2 className="text-[#e6f7ff] text-2xl">{t.enroll.closedTitle}</h2>
+          <h2 className="text-[#e6f7ff] text-2xl font-bold">{t.enroll.closedTitle}</h2>
           <p className="text-[#7fa6bd] text-sm leading-relaxed max-w-[380px]">{t.enroll.closedMsg}</p>
           <button
             onClick={() => setLocation("/")}
