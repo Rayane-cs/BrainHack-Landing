@@ -26,7 +26,7 @@ export const LocationSection = (): JSX.Element => {
             playsInline
             preload="none"
           >
-            <source src="/assets/Mobilis_Agence.mp4" type="video/mp4" />
+            <source src="/assets/Mobilis_Agence.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 bg-[#3ed2ff10] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
