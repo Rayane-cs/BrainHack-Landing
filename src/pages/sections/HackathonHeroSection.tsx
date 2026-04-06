@@ -9,7 +9,7 @@ export const HackathonHeroSection = (): JSX.Element => {
   const regDeadline = new Date("2026-04-15T23:59:59Z");
   const { expired } = useCountdown(regDeadline);
 
-  const { ref, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.05 });
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0 });
 
   const scrollToFaq = () => document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" });
   const goToEnroll  = () => setLocation("/enroll");
@@ -18,7 +18,7 @@ export const HackathonHeroSection = (): JSX.Element => {
     <section
       ref={ref}
       id="hero"
-      className={`w-full h-screen min-h-[100dvh] relative overflow-hidden flex flex-col items-center justify-center px-4 py-16 md:py-24 scroll-hidden ${isVisible ? "scroll-visible" : ""}`}
+      className={`w-full h-[100dvh] relative overflow-hidden flex flex-col items-center justify-center px-4 py-8 md:py-24 hero-reveal ${isVisible ? "scroll-visible" : ""}`}
     >
       {/* Brain */}
       <img className="absolute -bottom-[25%] -left-[25%] sm:-bottom-[55%] sm:-left-[13%] w-[80%] sm:w-[100%] max-w-[600px] sm:max-w-[800px] opacity-15 pointer-events-none select-none" alt="" src="/assets/brain-2.webp" loading="lazy" decoding="async" />
@@ -39,14 +39,14 @@ export const HackathonHeroSection = (): JSX.Element => {
         alt="Club logo" src="/assets/club-logo.webp"
       />
 
-      <p className="relative z-10 text-[#7fa6bd] text-sm md:text-lg text-center mb-2 stagger-2">
+      <p className="relative z-10 text-[#7fa6bd] text-[10px] sm:text-sm md:text-lg text-center mb-2 stagger-2 max-w-[280px] sm:max-w-none mx-auto opacity-80 uppercase tracking-widest leading-relaxed">
         {t.hero.date}
       </p>
 
       <h1
         className="relative z-10 font-normal text-transparent text-center leading-none mb-3 stagger-3"
         style={{
-          fontSize: "clamp(60px, 13vw, 150px)",
+          fontSize: "clamp(34px, 10vw, 150px)",
           background: "radial-gradient(50% 50% at 84% 12%, rgba(250,253,255,1) 0%, rgba(23,178,232,1) 80%, rgba(47,85,143,0.75) 100%)",
           WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
         }}
@@ -76,14 +76,14 @@ export const HackathonHeroSection = (): JSX.Element => {
             {t.hero.enrollNow}
           </button>
         )}
-        <button
+        <a
           id="hero-question-btn"
-          onClick={scrollToFaq}
-          className="btn-slide w-[240px] px-10 h-[52px] text-white text-base md:text-lg rounded-[50px] border-[3px] border-[#198acd] hover:bg-[#198acd20] transition-colors cursor-pointer whitespace-nowrap"
+          href="#faq"
+          className="btn-slide w-[240px] px-10 h-[52px] flex items-center justify-center text-white text-base md:text-lg rounded-[50px] border-[3px] border-[#198acd] hover:bg-[#198acd20] transition-colors cursor-pointer whitespace-nowrap"
         >
           <span className="btn-text-one">{t.hero.question}</span>
           <span className="btn-text-two text-[#3ed2ff]">{t.hero.clickAsk}</span>
-        </button>
+        </a>
       </div>
 
       {/* Mobilis Logo with Animation & Effects */}

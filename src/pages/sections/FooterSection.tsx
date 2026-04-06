@@ -14,6 +14,14 @@ export const FooterSection = (): JSX.Element => {
       <div className="absolute top-5 right-10 w-[80px] h-[40px] bg-[#17b2e810] rounded-lg blur-[30px] pointer-events-none rotate-[25deg]" />
       <img className="w-[56px] h-[56px] object-cover opacity-80 relative z-10" alt="InfoBrains logo" src="/assets/club-logo.webp" />
       <p className="text-[#7fa6bd] text-sm text-center max-w-[480px] leading-relaxed relative z-10">{t.footer.text}</p>
+      <a
+        href="https://www.linkedin.com/in/kslra/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="relative z-10 text-xs text-[#4a7a90] hover:text-[#3ed2ff] transition-colors duration-300 mt-2"
+      >
+        Made by <span className="underline underline-offset-2">ub</span>
+      </a>
     </footer>
   );
 };

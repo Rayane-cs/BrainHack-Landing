@@ -26,8 +26,8 @@ const empty: FormData = {
 export const EnrollPage = (): JSX.Element => {
   const { t } = useLang();
   const [, setLocation] = useLocation();
-  const regStartDate = new Date("2026-04-05T09:00:00Z");
-  const regDeadline = new Date("2026-04-15T23:59:59Z");
+  const regStartDate = new Date("2026-04-07T00:00:00Z");
+  const regDeadline = new Date("2026-04-14T23:59:59Z");
   
   const { expired: hasStarted, days: sDays, hours: sHours, minutes: sMins, seconds: sSecs } = useCountdown(regStartDate);
   const { expired: regClosed } = useCountdown(regDeadline);

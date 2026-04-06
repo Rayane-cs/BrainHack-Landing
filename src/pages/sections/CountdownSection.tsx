@@ -50,7 +50,7 @@ function CountdownTimer({ label, targetDate, dateLabel, expired }: { label: stri
 
 export const CountdownSection = (): JSX.Element => {
   const { t } = useLang();
-  const regDeadline    = new Date("2026-04-15T23:59:59Z");
+  const regDeadline    = new Date("2026-04-14T23:59:59Z");
   const hackathonStart = new Date("2026-04-17T09:00:00Z");
   const regCountdown   = useCountdown(regDeadline);
   const hackCountdown  = useCountdown(hackathonStart);

@@ -18,7 +18,7 @@ export const LocationSection = (): JSX.Element => {
       <div className="w-full max-w-5xl flex flex-col md:flex-row items-center gap-12 md:gap-20">
         <div className="relative flex-shrink-0 cursor-pointer group" onClick={() => window.open('https://maps.app.goo.gl/bByaV7BT2C2esUSu7', '_blank')}>
           <video
-            className="w-full max-w-[380px] md:w-[440px] h-[200px] md:h-[240px] object-cover rounded-xl transition-all duration-500 group-hover:scale-[1.02]"
+            className="w-full max-w-[380px] md:w-[440px] aspect-video object-cover rounded-xl transition-all duration-500 group-hover:scale-[1.02]"
             style={{ border: "1.5px solid rgba(62,210,255,0.3)", boxShadow: "0 0 30px rgba(62,210,255,0.08)" }}
             autoPlay
             muted

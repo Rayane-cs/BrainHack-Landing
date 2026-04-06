@@ -149,7 +149,7 @@ export const ScheduleSection = (): JSX.Element => {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={`marquee-1-${i}`} className="flex items-center gap-16 md:gap-32">
                 <img src="/assets/mobilis-1-1.png" alt="Mobilis" className="h-7 md:h-10 object-contain brightness-0 invert pointer-events-none select-none" loading="lazy" />
-                <span className="text-[#fafdff] opacity-20 text-3xl md:text-4xl font-light select-none">?</span>
+                <img src="/assets/wellmax-logo.webp" alt="Wellmax" className="h-7 md:h-10 object-contain brightness-0 invert filter grayscale opacity-60 pointer-events-none select-none" loading="lazy" />
               </div>
             ))}
           </div>
@@ -157,7 +157,7 @@ export const ScheduleSection = (): JSX.Element => {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={`marquee-2-${i}`} className="flex items-center gap-16 md:gap-32">
                 <img src="/assets/mobilis-1-1.png" alt="Mobilis" className="h-7 md:h-10 object-contain brightness-0 invert pointer-events-none select-none" loading="lazy" />
-                <span className="text-[#fafdff] opacity-20 text-3xl md:text-4xl font-light select-none">?</span>
+                <img src="/assets/wellmax-logo.webp" alt="Wellmax" className="h-7 md:h-10 object-contain brightness-0 invert filter grayscale opacity-60 pointer-events-none select-none" loading="lazy" />
               </div>
             ))}
           </div>

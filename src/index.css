@@ -20,6 +20,16 @@
   transform: translateY(0);
 }
 
+/* ─── Hero Reveal (No translation to prevent flickering) ─────────────────── */
+.hero-reveal {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-reveal.scroll-visible {
+  opacity: 1;
+}
+
 /* Staggered children */
 .scroll-hidden .stagger-1 { transition-delay: 0.08s; }
 .scroll-hidden .stagger-2 { transition-delay: 0.16s; }
@@ -136,21 +146,29 @@
   overflow: hidden;
 }
 
-.btn-slide .btn-text-one,
-.btn-slide .btn-text-two {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  transition: top 0.45s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@media (min-width: 768px) {
+  .btn-slide .btn-text-one,
+  .btn-slide .btn-text-two {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    transition: top 0.45s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-slide .btn-text-one { top: 50%; transform: translateY(-50%); }
+  .btn-slide .btn-text-two { top: 150%; transform: translateY(-50%); }
+  .btn-slide:hover .btn-text-one { top: -100%; }
+  .btn-slide:hover .btn-text-two { top: 50%; }
 }
 
-.btn-slide .btn-text-one { top: 50%; transform: translateY(-50%); }
-.btn-slide .btn-text-two { top: 150%; transform: translateY(-50%); }
-.btn-slide:hover .btn-text-one { top: -100%; }
-.btn-slide:hover .btn-text-two { top: 50%; }
+@media (max-width: 767px) {
+  .btn-slide .btn-text-two {
+    display: none;
+  }
+}
 
 /* ─── Shimmer ────────────────────────────────────────────────────────────────── */
 .animate-shimmer { animation: shimmer 8s infinite; }
@@ -322,23 +340,26 @@
 }
 
 html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+  scroll-behavior: smooth;
+  background-color: #000101;
 }
 
 body {
   margin: 0;
   padding: 0;
-  min-height: 100%;
-  overflow-x: hidden;
   background-color: #000101;
-  scroll-behavior: smooth;
 }
 
-/* ─── Custom Scrollbar (Webkit) ────────────────────────────────────────────────── */
+#root {
+  overflow-x: clip; /* Safely prevent horizontal scroll without locking vertical scroll */
+  position: relative;
+  min-height: 100vh;
+}
+
+
+/* ─── Custom Scrollbar ─────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -346,17 +367,24 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3ed2ff15;
-  border: 1px solid #3ed2ff20;
+  background: rgba(62, 210, 255, 0.15);
   border-radius: 20px;
+  border: 1px solid rgba(62, 210, 255, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3ed2ff30;
-  border-color: #3ed2ff40;
+  background: rgba(62, 210, 255, 0.35);
+  border-color: rgba(62, 210, 255, 0.25);
+  box-shadow: 0 0 8px rgba(62, 210, 255, 0.3);
 }
 
-/* ─── Tech Grid Background ─────────────────────────────────────────────────── */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(62, 210, 255, 0.15) #000101;
+}
+
+
 .bg-grid-tech {
   background-size: 50px 50px;
   background-repeat: repeat;
@@ -538,6 +566,19 @@ body {
   50%      { transform: translateZ(100px) scale(1.25) translateY(-5px); }
 }
 
+@keyframes calendar-ring-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Oughter-Regular", sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
 @keyframes calendar-ring-pulse {
   0% { transform: scale(1); opacity: 0.8; }
   100% { transform: scale(1.4); opacity: 0; }

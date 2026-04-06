@@ -34,20 +34,15 @@ export const SponsorShowcaseSection = ({ isSecondary = false }: SponsorShowcaseS
           </h2>
         )}
 
-        <div className="flex flex-row items-end justify-center gap-2 sm:gap-14 md:gap-24 px-2 w-full">
+        <div className="flex flex-row items-end justify-center gap-12 sm:gap-24 md:gap-40 px-4 w-full">
           <div className="flex flex-col items-center stagger-2">
-            <span className="text-[#7fa6bd] text-5xl sm:text-9xl md:text-[10rem] leading-none mb-3 sm:mb-6 md:mb-8 font-light">?</span>
-            <div className="w-[5rem] sm:w-[9.375rem] md:w-[13.75rem] h-[2px] md:h-[3px] bg-gradient-to-r from-transparent via-[#3ed2ff80] to-transparent rounded-full" />
+            <img className="h-7 sm:h-12 md:h-20 w-auto object-contain mb-3 sm:mb-6 md:mb-8 drop-shadow-[0_0_20px_rgba(62,210,255,0.2)] hover:scale-110 transition-transform duration-500" alt="Wellmax" src="/assets/wellmax-logo.webp" />
+            <div className="w-[8rem] sm:w-[15rem] md:w-[22rem] h-[2px] md:h-[3px] bg-gradient-to-r from-transparent via-[#3ed2ff80] to-transparent rounded-full" />
           </div>
 
           <div className="flex flex-col items-center stagger-3">
-            <img className="w-[8.75rem] sm:w-[17.5rem] md:w-[26.25rem] h-auto object-contain mb-3 sm:mb-6 md:mb-8 drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]" alt="Mobilis" src="/assets/mobilis-1-1.png" />
-            <div className="w-[7.5rem] sm:w-[13.75rem] md:w-[20rem] h-[2px] md:h-[3px] bg-gradient-to-r from-transparent via-[#3ed2ff80] to-transparent rounded-full" />
-          </div>
-
-          <div className="flex flex-col items-center stagger-4">
-            <span className="text-[#7fa6bd] text-5xl sm:text-9xl md:text-[10rem] leading-none mb-3 sm:mb-6 md:mb-8 font-light">?</span>
-            <div className="w-[5rem] sm:w-[9.375rem] md:w-[13.75rem] h-[2px] md:h-[3px] bg-gradient-to-r from-transparent via-[#3ed2ff80] to-transparent rounded-full" />
+            <img className="h-10 sm:h-20 md:h-32 w-auto object-contain mb-3 sm:mb-6 md:mb-8 drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:scale-110 transition-transform duration-500" alt="Mobilis" src="/assets/mobilis-1-1.png" />
+            <div className="w-[8rem] sm:w-[15rem] md:w-[22rem] h-[2px] md:h-[3px] bg-gradient-to-r from-transparent via-[#3ed2ff80] to-transparent rounded-full" />
           </div>
         </div>
       </div>
