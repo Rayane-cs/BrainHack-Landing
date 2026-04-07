@@ -151,7 +151,7 @@ export const EnrollPage = (): JSX.Element => {
   const sanitizeInput = (val: string) => {
     // Basic sanitization to strip characters often used in SQL injection/XSS
     // Note: Real protection MUST be on the backend.
-    return val.replace(/[<>'"\\;]/g, "").trim();
+    return val.replace(/[<>'"\\;]/g, "");
   };
 
   const set = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -206,11 +206,14 @@ export const EnrollPage = (): JSX.Element => {
     if (!validate()) return;
     setSubmitting(true);
     setApiError("");
+    const trimmedForm = Object.fromEntries(
+      Object.entries(form).map(([key, value]) => [key, typeof value === "string" ? value.trim() : value])
+    );
     try {
       const res = await fetch(`${API_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(trimmedForm),
       });
       let data: { error?: string } = {};
       try {
@@ -220,8 +223,8 @@ export const EnrollPage = (): JSX.Element => {
       }
       
       if (res.status === 201) {
-        localStorage.setItem("brainhack_registered", JSON.stringify(form));
-        setSuccessData(form);
+        localStorage.setItem("brainhack_registered", JSON.stringify(trimmedForm));
+        setSuccessData(trimmedForm as FormData);
         setSubmitting(false);
 
         // Separate email sending from the main registration flow
@@ -230,7 +233,7 @@ export const EnrollPage = (): JSX.Element => {
         fetch(`${API_URL}/api/send-confirmation`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(trimmedForm),
         }).catch((err) => console.error("Could not trigger confirmation email:", err));
 
         return;
