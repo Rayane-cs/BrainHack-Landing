@@ -83,7 +83,7 @@ export const translations = {
     faq: {
       title: "FAQ",
       questions: [
-        { q: "Who can participate in BrainHack 2026?", a: "BrainHack is open to all students. Whether you're a developer, designer, or business thinker — if you have a passion for solving real-world problems, you're welcome to join." },
+        { q: "Who can participate in BrainHack 2026?", a: "BrainHack is open exclusively to informatique students at the University of Hassiba Ben Bouali (UHBC), Chlef." },
         { q: "Do I need prior experience in programming?", a: "Not necessarily! BrainHack values diverse skills. While technical skills help, we also need designers, product managers, and creative problem-solvers." },
         { q: "What should I bring to the hackathon?", a: "Bring your laptop, charger, and any hardware you might need.Most importantly, bring your ideas, energy, and team spirit!" },
         { q: "Is residence provided for students from other cities?", a: "Unfortunately, we do not offer residence for participants coming from other cities." },
@@ -227,7 +227,7 @@ export const translations = {
     faq: {
       title: "FAQ",
       questions: [
-        { q: "Qui peut participer à BrainHack 2026?", a: "BrainHack est ouvert à tous les étudiants. Que vous soyez développeur, designer ou penseur d’affaires — si vous avez une passion pour résoudre des problèmes réels, vous êtes le bienvenu pour rejoindre." },
+        { q: "Qui peut participer à BrainHack 2026?", a: "BrainHack est ouvert exclusivement aux étudiants en informatique de l'Université Hassiba Ben Bouali (UHBC), Chlef." },
         { q: "Ai-je besoin d'une expérience préalable en programmation?", a: "Pas nécessairement ! BrainHack valorise les compétences diverses. Bien que les compétences techniques aident, nous avons également besoin de concepteurs, de chefs de produit et de résolveurs de problèmes créatifs." },
         { q: "Que dois-je apporter au hackathon?", a: " Apportez votre ordinateur portable, votre chargeur et tout le matériel dont vous pourriez avoir besoin. Surtout, apportez vos idées, votre énergie et votre esprit d’équipe." },
         { q: "L'hébergement est-il assuré pour les étudiants venant d'autres villes ?", a: "Malheureusement, nous ne proposons pas d'hébergement pour les participants venant d'autres villes." },
@@ -372,7 +372,7 @@ export const translations = {
     faq: {
       title: "الأسئلة الشائعة",
       questions: [
-        { q: "من يمكنه المشاركة في BrainHack 2026؟", a: "BrainHack مفتوح لجميع الطلاب. سواء كنت مطورًا أو مصممًا أو مفكرًا تجاريًا إذا كان لديك شغف بحل مشكلات العالم الحقيقي، فنحن نرحب بك للانضمام." },
+        { q: "من يمكنه المشاركة في BrainHack 2026؟", a: "تظاهرة BrainHack مفتوحة حصرياً لطلبة الإعلام الآلي بجامعة حسيبة بن بوعلي بالشلف (UHBC)." },
         { q: "هل أحتاج إلى خبرة مسبقة في البرمجة؟", a: "ليس بالضرورة! تقدر BrainHack المهارات المتنوعة. في حين أن المهارات التقنية تساعدنا، فإننا نحتاج أيضًا إلى مصممين مبدعين ومديري منتجات ومحللين للمشاكل." },
         { q: "ماذا يجب أن أحضر إلى الهاكاثون؟", a: "أحضر الكمبيوتر المحمول والشاحن وأي أجهزة قد تحتاجها. قبل كل شيء، أحضر أفكارك وطاقتك وروح الفريق." },
         { q: "هل يتم توفير الإقامة للطلاب القادمين من مدن أخرى؟", a: "للأسف، نحن لا نوفر الإقامة للمشاركين القادمين من مدن أخرى." },
