@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCountdown } from "@/hooks/useCountdown";
+import { useToast } from "@/hooks/use-toast";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { SuccessRegistrationView } from "./sections/SuccessRegistrationView";
 
@@ -16,15 +17,26 @@ type FormData = {
   registration_number: string;
   level: string;
   speciality: string;
+  town_name: string;
+  stop_station_name: string;
   portfolio_link: string;
 };
 
 const empty: FormData = {
-  full_name: "", email: "", phone: "", registration_number: "", level: "", speciality: "", portfolio_link: "",
+  full_name: "",
+  email: "",
+  phone: "",
+  registration_number: "",
+  level: "",
+  speciality: "",
+  town_name: "",
+  stop_station_name: "",
+  portfolio_link: "",
 };
 
 export const EnrollPage = (): JSX.Element => {
   const { t } = useLang();
+  const { toast } = useToast();
   const [, setLocation] = useLocation();
   const regStartDate = new Date("2026-04-07T00:00:00Z");
   const regDeadline = new Date("2026-04-14T23:59:59Z");
@@ -58,8 +70,9 @@ export const EnrollPage = (): JSX.Element => {
     // Debug helpers for console
     (window as any).showSuccess = () => {
       setSuccessData({
-        full_name: "Test Participant", email: "test@example.com", phone: "0555 123 456",
+        full_name: "Test Participant", email: "test@example.com", phone: "0555123456",
         registration_number: "2024DEBUG", level: "M1", speciality: "Frontend Development",
+        town_name: "Chlef", stop_station_name: "Gare routière",
         portfolio_link: "https://github.com/debug"
       });
     };
@@ -108,6 +121,14 @@ export const EnrollPage = (): JSX.Element => {
       delete (window as any).clearSuccess;
     };
   }, []);
+
+  const showTransportFieldHint = useCallback(() => {
+    toast({
+      title: t.enroll.transportHintTitle,
+      description: t.enroll.transportHintBody,
+      duration: 12_000,
+    });
+  }, [toast, t.enroll.transportHintTitle, t.enroll.transportHintBody]);
 
   // Debounced email verification
   useEffect(() => {
@@ -165,7 +186,10 @@ export const EnrollPage = (): JSX.Element => {
 
   const validate = (): boolean => {
     const errs: Partial<FormData> = {};
-    const requiredFields: (keyof FormData)[] = ["full_name", "email", "phone", "registration_number", "level", "speciality"];
+    const requiredFields: (keyof FormData)[] = [
+      "full_name", "email", "phone", "registration_number", "level", "speciality",
+      "town_name", "stop_station_name",
+    ];
     
     requiredFields.forEach((k) => {
       if (!form[k].trim()) {
@@ -463,6 +487,38 @@ export const EnrollPage = (): JSX.Element => {
                 {t.enroll.specialities.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
               {errors.speciality && <span className="text-red-400 text-xs">{errors.speciality}</span>}
+            </div>
+          </div>
+
+          {/* Town + stop station (transport) */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col gap-1.5 flex-1" id="enroll-town-group">
+              <label className="text-[#7fa6bd] text-sm" htmlFor="enroll-town">{t.enroll.townName}</label>
+              <input
+                id="enroll-town"
+                type="text"
+                placeholder={t.enroll.townNamePh}
+                value={form.town_name}
+                onChange={set("town_name")}
+                onFocus={showTransportFieldHint}
+                className={inputClass("town_name")}
+                autoComplete="address-level2"
+              />
+              {errors.town_name && <span className="text-red-400 text-xs">{errors.town_name}</span>}
+            </div>
+            <div className="flex flex-col gap-1.5 flex-1" id="enroll-stop-group">
+              <label className="text-[#7fa6bd] text-sm" htmlFor="enroll-stop">{t.enroll.stopStation}</label>
+              <input
+                id="enroll-stop"
+                type="text"
+                placeholder={t.enroll.stopStationPh}
+                value={form.stop_station_name}
+                onChange={set("stop_station_name")}
+                onFocus={showTransportFieldHint}
+                className={inputClass("stop_station_name")}
+                autoComplete="off"
+              />
+              {errors.stop_station_name && <span className="text-red-400 text-xs">{errors.stop_station_name}</span>}
             </div>
           </div>
 

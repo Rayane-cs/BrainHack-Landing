@@ -42,6 +42,19 @@ export const SuccessRegistrationView = ({ data }: SuccessViewProps): JSX.Element
           <p className="text-[#7fa6bd] text-base md:text-lg opacity-80">{t.modal.subtitle}</p>
         </div>
 
+        {/* Transport — high-visibility notice (after registration) */}
+        <div
+          className="mb-10 rounded-2xl border-2 border-[#fbbf24] bg-[#fbbf24]/15 px-5 py-4 shadow-[0_0_24px_rgba(251,191,36,0.25)]"
+          role="status"
+        >
+          <p className="text-[#fef08a] text-base md:text-lg font-bold text-center leading-snug">
+            {t.modal.transportNoticeTitle}
+          </p>
+          <p className="text-[#fffbeb] text-sm md:text-base text-center mt-2 leading-relaxed font-medium">
+            {t.modal.transportNotice}
+          </p>
+        </div>
+
         {/* Selection Status Pipeline */}
         <div className="bg-[#00010150] border border-[#198acd15] rounded-2xl p-6 mb-10">
           <h3 className="text-[#e6f7ff] text-sm font-mono tracking-[0.2em] uppercase mb-6 flex items-center gap-3">
